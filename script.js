@@ -1,5 +1,88 @@
 // script.js
 
+// --- Neige avec canvas, plus douce ---
+const canvas = document.getElementById('snowCanvas');
+const ctx = canvas.getContext('2d');
+
+let W = window.innerWidth;
+let H = window.innerHeight;
+canvas.width = W;
+canvas.height = H;
+
+// Moins de flocons et plus doux
+const maxFlakes = 150;
+const flakes = [];
+
+for (let i = 0; i < maxFlakes; i++) {
+  flakes.push({
+    x: Math.random() * W,
+    y: Math.random() * H,
+    r: 1.5 + Math.random() * 2.5,      // flocons légèrement plus gros
+    d: Math.random() * maxFlakes,
+    speed: 0.3 + Math.random() * 1.2
+  });
+}
+
+let angle = 0;
+
+function drawSnow() {
+  ctx.clearRect(0, 0, W, H);
+
+  // Couleur plus transparente = effet plus léger
+  ctx.fillStyle = 'rgba(255, 255, 255, 0.35)';
+  ctx.beginPath();
+
+  for (let i = 0; i < maxFlakes; i++) {
+    const f = flakes[i];
+    ctx.moveTo(f.x, f.y);
+    ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2, true);
+  }
+
+  ctx.fill();
+  updateSnow();
+}
+
+function updateSnow() {
+  angle += 0.0008;
+
+  for (let i = 0; i < maxFlakes; i++) {
+    const f = flakes[i];
+
+    f.y += f.speed + Math.cos(angle + f.d) * 0.2;
+    f.x += Math.sin(angle) * 0.5;
+
+    if (f.y > H + 5 || f.x < -10 || f.x > W + 10) {
+      const rand = Math.random();
+      if (rand > 0.33) {
+        f.x = Math.random() * W;
+        f.y = -10;
+      } else if (Math.sin(angle) > 0) {
+        f.x = -10;
+        f.y = Math.random() * H;
+      } else {
+        f.x = W + 10;
+        f.y = Math.random() * H;
+      }
+    }
+  }
+}
+
+function animateSnow() {
+  drawSnow();
+  requestAnimationFrame(animateSnow);
+}
+
+animateSnow();
+
+window.addEventListener('resize', () => {
+  W = window.innerWidth;
+  H = window.innerHeight;
+  canvas.width = W;
+  canvas.height = H;
+});
+
+
+
 // Ouvrir la carte au clic
 const card = document.getElementById('loginCard');
 const openCardBtn = document.getElementById('openCardBtn');

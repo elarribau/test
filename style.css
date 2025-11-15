@@ -13,49 +13,51 @@ body {
   color: #ffffff;
   overflow: hidden;
   position: relative;
-
-  /* Fond de Noël (remplace l'URL par ta propre image) */
   background-image: linear-gradient(
       rgba(10, 10, 30, 0.7),
       rgba(10, 10, 30, 0.8)
     ),
-    url("https://images.pexels.com/photos/1727654/pexels-photo-1727654.jpeg");
-  background-size: cover;
+    url("https://i.ytimg.com/vi/-4WrubTx4Wg/maxresdefault.jpg");
+  background-size: cover;      /* s'adapte à tous les écrans */
   background-position: center;
   background-repeat: no-repeat;
 }
 
+/* On réduit un peu le titre sur mobiles */
+@media (max-width: 480px) {
+  .verse h1 {
+    font-size: 2rem;
+  }
+
+  .verse-text {
+    font-size: 0.95rem;
+  }
+
+  .card {
+    width: 90vw;
+    max-width: 340px;
+    height: 240px;
+  }
+
+  .result {
+    width: 90vw;
+    max-width: 420px;
+  }
+}
+
+
 /* Neige qui tombe inspirée de plusieurs exemples CSS de particules */ 
-.snow {
-  pointer-events: none;
+/* Canvas de neige plein écran */
+#snowCanvas {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image:
-    radial-gradient(2px 2px at 20px 30px, #fff, transparent),
-    radial-gradient(3px 3px at 40px 70px, #fff, transparent),
-    radial-gradient(2px 2px at 50px 160px, #fff, transparent),
-    radial-gradient(3px 3px at 90px 40px, #fff, transparent),
-    radial-gradient(2px 2px at 130px 80px, #fff, transparent),
-    radial-gradient(3px 3px at 160px 120px, #fff, transparent);
-  background-size: 200px 200px;
-  animation: snow 10s linear infinite;
-  opacity: 0.8;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;   /* ne bloque pas les clics */
   z-index: 1;
 }
 
-@keyframes snow {
-  0% {
-    transform: translateY(-100px);
-  }
-  100% {
-    transform: translateY(100vh);
-  }
-}
-
-/* Conteneur principal */
+/* On remonte le contenu au-dessus de la neige */
 .page-wrapper {
   position: relative;
   z-index: 2;
@@ -64,7 +66,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 2rem;
+  padding: 2rem 1.5rem;
 }
 
 /* Verset biblique */
