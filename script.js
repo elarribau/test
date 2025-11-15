@@ -85,11 +85,6 @@ window.addEventListener('resize', () => {
 const envelope = document.getElementById('envelope');
 const envelopeSeal = document.getElementById('envelopeSeal');
 
-// --- Formulaire et résultat ---
-const loginForm = document.getElementById('loginForm');
-const resultBox = document.getElementById('resultBox');
-const resultText = document.getElementById('resultText');
-
 envelopeSeal.addEventListener('click', () => {
   envelope.classList.add('open');
 
@@ -109,37 +104,46 @@ fetch('participants.json')
     console.error('Erreur de chargement du fichier participants.json', err);
   });
 
+// --- Formulaire et résultat ---
+const loginForm = document.getElementById('loginForm');
+const resultBox = document.getElementById('resultBox');
+const resultText = document.getElementById('resultText');
+
 // Gestion du formulaire
-loginForm.addEventListener('submit', (event) => {
-  event.preventDefault();
+if (loginForm) {
+  loginForm.addEventListener('submit', (event) => {
+    event.preventDefault();
 
-  const prenom = document.getElementById('prenom').value.trim().toLowerCase();
-  const password = document.getElementById('password').value;
+    const prenom = document.getElementById('prenom').value.trim().toLowerCase();
+    const password = document.getElementById('password').value;
 
-  if (!prenom || !password) {
-    alert('Merci de remplir ton prénom et ton mot de passe.');
-    return;
-  }
+    if (!prenom || !password) {
+      alert('Merci de remplir ton prénom et ton mot de passe.');
+      return;
+    }
 
-  // Recherche dans la "base de données"
-  const user = participants.find(
-    (p) =>
-      p.prenom.toLowerCase() === prenom &&
-      p.password === password
-  );
+    // Recherche dans la "base de données"
+    const user = participants.find(
+      (p) =>
+        p.prenom.toLowerCase() === prenom &&
+        p.password === password
+    );
 
-  if (!user) {
-    resultText.textContent =
-      'Impossible de te trouver… Vérifie ton prénom et ton mot de passe, ou contacte l’organisateur.';
+    if (!user) {
+      resultText.textContent =
+        'Impossible de te trouver… Vérifie ton prénom et ton mot de passe, ou contacte l’organisateur.';
+      resultBox.hidden = false;
+      return;
+    }
+
+    // Affiche le destinataire
+    resultText.innerHTML =
+      'Tu as tiré&nbsp;<strong>' +
+      user.cible +
+      '</strong>&nbsp;! Joyeux Noël 🎄';
+
     resultBox.hidden = false;
-    return;
-  }
-
-  // Affiche le destinataire
-  resultText.innerHTML =
-    'Tu as tiré&nbsp;<strong>' +
-    user.cible +
-    '</strong>&nbsp;! Joyeux Noël 🎄';
-
-  resultBox.hidden = false;
-});
+  });
+} else {
+  console.error('Élément #loginForm introuvable');
+}
