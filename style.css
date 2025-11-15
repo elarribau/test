@@ -203,6 +203,7 @@ body {
   transform-origin: top center;
   transform: rotateX(0deg);
   transition: transform 0.7s ease;
+  z-index: 2;
 }
 
 /* Triangle du rabat */
