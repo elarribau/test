@@ -1,0 +1,254 @@
+/* Import d'une jolie police */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Poppins:wght@300;500&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  font-family: 'Poppins', sans-serif;
+  color: #ffffff;
+  overflow: hidden;
+  position: relative;
+
+  /* Fond de Noël (remplace l'URL par ta propre image) */
+  background-image: linear-gradient(
+      rgba(10, 10, 30, 0.7),
+      rgba(10, 10, 30, 0.8)
+    ),
+    url("https://images.pexels.com/photos/1727654/pexels-photo-1727654.jpeg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Neige qui tombe inspirée de plusieurs exemples CSS de particules */ 
+.snow {
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image:
+    radial-gradient(2px 2px at 20px 30px, #fff, transparent),
+    radial-gradient(3px 3px at 40px 70px, #fff, transparent),
+    radial-gradient(2px 2px at 50px 160px, #fff, transparent),
+    radial-gradient(3px 3px at 90px 40px, #fff, transparent),
+    radial-gradient(2px 2px at 130px 80px, #fff, transparent),
+    radial-gradient(3px 3px at 160px 120px, #fff, transparent);
+  background-size: 200px 200px;
+  animation: snow 10s linear infinite;
+  opacity: 0.8;
+  z-index: 1;
+}
+
+@keyframes snow {
+  0% {
+    transform: translateY(-100px);
+  }
+  100% {
+    transform: translateY(100vh);
+  }
+}
+
+/* Conteneur principal */
+.page-wrapper {
+  position: relative;
+  z-index: 2;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+/* Verset biblique */
+.verse {
+  text-align: center;
+  margin-bottom: 3rem;
+  max-width: 700px;
+}
+
+.verse h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  letter-spacing: 2px;
+}
+
+.verse-text {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  font-style: italic;
+}
+
+/* Carte de connexion */
+.card-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.card {
+  width: 340px;
+  height: 260px;
+  perspective: 1200px;
+}
+
+.card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.9s;
+  transform-style: preserve-3d;
+}
+
+/* Etat ouvert (rotation) */
+.card.open .card-inner {
+  transform: rotateY(180deg);
+}
+
+/* Faces de la carte */
+.card-front,
+.card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 14px;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  box-shadow:
+    0 20px 40px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(255, 255, 255, 0.2);
+  overflow: hidden;
+}
+
+/* Aspect papier de Noël */
+.card-front {
+  background: linear-gradient(135deg, #b71c1c, #880e4f);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.card-front-content h2 {
+  font-family: 'Playfair Display', serif;
+  margin-bottom: 0.5rem;
+}
+
+.card-front-content p {
+  margin-bottom: 1rem;
+}
+
+.card-front-content button {
+  padding: 0.6rem 1.4rem;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+  background: #ffffff;
+  color: #b71c1c;
+  transition: background 0.3s, color 0.3s, transform 0.2s;
+}
+
+.card-front-content button:hover {
+  background: #fce4ec;
+  transform: translateY(-2px);
+}
+
+/* Intérieur de la carte */
+.card-back {
+  background: linear-gradient(135deg, #1e88e5, #0d47a1);
+  transform: rotateY(180deg);
+  padding: 1.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#loginForm {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+#loginForm h2 {
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+label {
+  font-size: 0.9rem;
+}
+
+input[type="text"],
+input[type="password"] {
+  padding: 0.6rem 0.75rem;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  font-size: 0.95rem;
+}
+
+#loginForm button[type="submit"] {
+  margin-top: 0.5rem;
+  padding: 0.7rem;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  background: #ffcc80;
+  color: #5d4037;
+  transition: background 0.3s, transform 0.2s;
+}
+
+#loginForm button[type="submit"]:hover {
+  background: #ffe0b2;
+  transform: translateY(-2px);
+}
+
+.hint {
+  font-size: 0.8rem;
+  opacity: 0.8;
+  text-align: center;
+}
+
+/* Résultat */
+.result {
+  max-width: 400px;
+  padding: 1.5rem 2rem;
+  border-radius: 14px;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(6px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+  text-align: center;
+}
+
+.result h2 {
+  margin-bottom: 0.5rem;
+}
+
+#resultText {
+  font-size: 1.1rem;
+  line-height: 1.5;
+}
+
+/* Responsif */
+@media (max-width: 480px) {
+  .verse h1 {
+    font-size: 2.3rem;
+  }
+
+  .card {
+    width: 300px;
+    height: 240px;
+  }
+}

@@ -1,0 +1,17 @@
+[
+  {
+    "prenom": "Marie",
+    "password": "etoile2024",
+    "cible": "Paul"
+  },
+  {
+    "prenom": "Paul",
+    "password": "berger",
+    "cible": "Lucie"
+  },
+  {
+    "prenom": "Lucie",
+    "password": "bethleem",
+    "cible": "Marie"
+  }
+]
