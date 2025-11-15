@@ -7,7 +7,7 @@
     <link rel="shortcut icon" href="/favicon.ico" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
-  <title>Secret Santa</title>
+  <title>Cadeau secret</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
 </head>
@@ -17,19 +17,7 @@
 
   <!-- Conteneur principal -->
   <div class="page-wrapper">
-    <!-- Verset biblique -->
-    <section class="verse">
-        <div class="verse-inner">
-            <p class="verse-text">
-            Car Dieu a tant aimé le monde qu’il a donné son Fils unique,
-            afin que quiconque croit en lui ne périsse point, mais qu’il ait la vie éternelle.
-            </p>
-            <p class="verse-ref">
-            Jean 3:16
-            </p>
-        </div>
-    </section>
-
+    <main class="main-center">
 
     <!-- Carte qui s'ouvre -->
     <section class="card-container">
@@ -46,7 +34,7 @@
 
             <div class="letter" id="letter">
                 <form id="loginForm" autocomplete="off">
-                    <h2>Ta lettre Secret&nbsp;Santa</h2>
+                    <h2>Message Top&nbsp;Secret</h2>
 
                     <label for="prenom">Prénom</label>
                     <input type="text" id="prenom" name="prenom" required>
@@ -54,19 +42,32 @@
                     <label for="password">Mot de passe</label>
                     <input type="password" id="password" name="password" required>
 
-                    <button type="submit">Découvrir mon tirage</button>
+                    <button type="submit">Je veux savoir !</button>
 
                     <p class="hint">
-                    Le mot de passe est celui que tu as choisi avec l’organisateur.
+                    Le mot de passe est celui que tu as choisi dans le formulaire d'inscription.
                     </p>
                 </form>
 
                 <!-- Bloc pour le message final sur la lettre -->
                 <div class="letter-result is-hidden" id="letterResult">
-                    <h2>Ta lettre Secret&nbsp;Santa</h2>
+                    <h2>Message Top&nbsp;Secret</h2>
                     <p id="letterResultText"></p>
                 </div>
             </div>
+        </div>
+    </section>
+    </main>
+
+    <section class="verse">
+        <div class="verse-inner">
+            <p class="verse-text">
+            Car Dieu a tant aimé le monde qu’il a donné son Fils unique,
+            afin que quiconque croit en lui ne périsse point, mais qu’il ait la vie éternelle.
+            </p>
+            <p class="verse-ref">
+            Jean 3:16
+            </p>
         </div>
     </section>
 

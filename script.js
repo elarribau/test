@@ -167,7 +167,7 @@ if (loginForm) {
         'Tu as tiré <strong>' + cibleNom +
         '</strong> ! <br><br>' +
         '<span><u>Adresse postale :</u> <br> ' + cibleAdresse + '</span>' + 
-        '<br><br> Joyeux Noël !🎄';
+        "<br><br> N'oublie pas de lui envoyer un cadeau avant le 25 décembre ! <br> Joyeux Noël !🎄";
     }
 
   });
