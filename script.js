@@ -1,7 +1,5 @@
-// script.js — version minimale pour GitHub Pages
-// Att: ce script charge data.json (liste des participants avec pwHash)
-// et compare le hash SHA-256 du mot de passe saisi.
-// Utilise l'API SubtleCrypto (fonctionne sur navigateurs modernes).
+// script.js — logique inchangée mais intégrée aux éléments stylés.
+// Charge data.json et compare SHA-256 du mot de passe saisi.
 
 const btn = document.getElementById('btn');
 const pidInput = document.getElementById('pid');
@@ -17,7 +15,7 @@ async function loadData() {
     if(!r.ok) throw new Error('Impossible de charger data.json : ' + r.status);
     data = await r.json();
   } catch (e) {
-    feedback.innerHTML = `<div class="error">Erreur de chargement des données : ${e.message}</div>`;
+    showError('Erreur de chargement des données : ' + e.message);
   }
 }
 
@@ -33,6 +31,7 @@ async function sha256hex(message) {
 
 function showError(msg){
   feedback.innerHTML = `<div class="error">${msg}</div>`;
+  feedback.scrollIntoView({behavior:'smooth', block:'nearest'});
 }
 
 // trouve participant par identifiant (case-insensitive)
@@ -40,6 +39,22 @@ function findParticipant(id){
   if(!data || !Array.isArray(data.participants)) return null;
   const key = id.trim().toLowerCase();
   return data.participants.find(p => (p.id && p.id.toLowerCase()===key) || (p.displayName && p.displayName.toLowerCase()===key) ) || null;
+}
+
+function showResult(match, participant){
+  const note = match.note ? escapeHtml(match.note) : '—';
+  const html = `<div class="result">
+    <strong>Bravo — tu as pioché :</strong>
+    <div style="margin-top:10px;font-size:20px;color:#fff;padding:8px 10px;border-radius:8px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.03)">${escapeHtml(match.displayName)}</div>
+    <div style="margin-top:8px;font-size:13px;color:var(--muted)">Petit mot : ${note}</div>
+    <div style="margin-top:10px;font-size:12px;color:var(--muted)">Rappelle-toi : respecte le budget et envoie ton cadeau à l'adresse fournie à l'organisatrice.</div>
+  </div>`;
+  feedback.innerHTML = html;
+  feedback.scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+
+function escapeHtml(s){
+  return String(s).replace(/[&<>"']/g, function(m){ return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[m]; });
 }
 
 // main
@@ -64,13 +79,7 @@ btn.addEventListener('click', async () => {
       showError("Résultat non trouvé (erreur d'organisation). Contacte l'organisatrice.");
       return;
     }
-    // affiche résultat (message chaleureux)
-    feedback.innerHTML = `<div class="result">
-      <strong>Bravo — tu as pioché :</strong>
-      <div style="margin-top:8px;font-size:18px">${match.displayName}</div>
-      <div style="margin-top:8px;font-size:13px;color:#334">Petit mot : ${match.note || '—'}</div>
-      <small>Rappelle-toi : respecte le budget et envoie ton cadeau à l'adresse fournie à l'organisatrice.</small>
-    </div>`;
+    showResult(match, part);
   } catch (e) {
     showError('Erreur lors du traitement : ' + e.message);
   }
